@@ -1,9 +1,11 @@
 {
   "homepage": "https://github.com/waffle-stomper/WaffleCore/releases",
   "promos":{
-    "1.10-recommended": "0.0.3"
+    "1.10-recommended": "0.0.6"
   },
   "1.10":{
+    "0.0.6": "*Fix a small bug where requests were repeated unnecessarily",
+    "0.0.5": "*Repeat request if rate-limiting prevents a request",
     "0.0.3": "Initial release"
   }
 }

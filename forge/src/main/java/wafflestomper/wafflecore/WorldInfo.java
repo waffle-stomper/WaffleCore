@@ -5,11 +5,14 @@ import org.apache.logging.log4j.Logger;
 
 import io.netty.buffer.ByteBuf;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.ScaledResolution;
+import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.gameevent.TickEvent.PlayerTickEvent;
 import net.minecraftforge.fml.common.network.ByteBufUtils;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
@@ -21,9 +24,10 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class WorldInfo{
 	
-	private static final int MIN_DELAY_MS = 1000;
+	private static final int MIN_DELAY_MS = 2000;
 	private static long lastRequest;
 	private static long lastResponse;
+	private static boolean requestDelayed = false;
 	private SimpleNetworkWrapper channel;
 	private static String worldID;
 	private static String serverAddress;
@@ -32,7 +36,7 @@ public class WorldInfo{
 	private static final Logger logger = LogManager.getLogger("WaffleCore:WorldInfo");
 	private static final String CHANNEL_NAME = "world_id";
 	
-	
+		
 	
 	public void preInit(FMLPreInitializationEvent event) {
 		mc = Minecraft.getMinecraft();
@@ -49,6 +53,18 @@ public class WorldInfo{
 		MinecraftForge.EVENT_BUS.register(this);
 		FMLCommonHandler.instance().bus().register(this);
 	}
+	
+	
+    @SubscribeEvent
+    public void renderGuiText(RenderGameOverlayEvent event){
+    	if (event.getType() == RenderGameOverlayEvent.ElementType.TEXT){
+    		String worldID = this.getWorldName();
+    		int textWidth = this.mc.fontRendererObj.getStringWidth(worldID);
+    		ScaledResolution scaledResolution = new ScaledResolution(this.mc);
+      		int xPos = scaledResolution.getScaledWidth()/2 - textWidth/2;
+    		this.mc.fontRendererObj.drawString(worldID, xPos, 5, 0xFFFF0000);
+    	}
+    }
 	
 	
 	public String getWorldName(){
@@ -102,9 +118,20 @@ public class WorldInfo{
 				serverAddress = mc.getCurrentServerData().serverIP;
 				niceServerAddress = cleanServerAddress(this.getServerAddress());
 				worldID = null;
+				logger.warn("Joined world! Requesting ID");
 				if (this.channel != null){
 					requestWorldID();
 				}
+			}
+		}
+	}
+	
+	
+	@SubscribeEvent
+	public void playerTick(PlayerTickEvent event){
+		if (mc.theWorld != null && !mc.isSingleplayer() && mc.thePlayer != null && !mc.thePlayer.isDead){
+			if (this.requestDelayed){
+				this.requestWorldID();
 			}
 		}
 	}
@@ -114,9 +141,13 @@ public class WorldInfo{
 		if (channel == null){ return; }
 		long now = System.currentTimeMillis();
 		if((lastRequest + MIN_DELAY_MS < now) && (lastResponse + MIN_DELAY_MS < now)) {
-			//System.out.println("Sending request..");
+			requestDelayed = false;
+			logger.warn("Actually sending request..");
 			channel.sendToServer(new WorldIDPacket());
 			lastRequest = System.currentTimeMillis();
+		}
+		else{
+			requestDelayed = true;
 		}
 	}
 	

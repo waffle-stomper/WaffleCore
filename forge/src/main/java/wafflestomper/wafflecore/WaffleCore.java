@@ -15,7 +15,7 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 public class WaffleCore{
 	
     public static final String MODID = "WaffleCore";
-    public static final String VERSION = "0.0.3";
+    public static final String VERSION = "0.0.6";
     public static final String NAME = "WaffleCore";
     
     public static WaffleCore INSTANCE;
