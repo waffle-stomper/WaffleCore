@@ -34,9 +34,8 @@ public class WorldInfo{
 	private static String niceServerAddress;
 	private static Minecraft mc;
 	private static final Logger logger = LogManager.getLogger("WaffleCore:WorldInfo");
-	private static final String CHANNEL_NAME = "world_id";
+	private static final String CHANNEL_NAME = "world_identifier";
 	
-		
 	
 	public void preInit(FMLPreInitializationEvent event) {
 		mc = Minecraft.getMinecraft();
@@ -53,18 +52,6 @@ public class WorldInfo{
 		MinecraftForge.EVENT_BUS.register(this);
 		FMLCommonHandler.instance().bus().register(this);
 	}
-	
-	
-    @SubscribeEvent
-    public void renderGuiText(RenderGameOverlayEvent event){
-    	if (event.getType() == RenderGameOverlayEvent.ElementType.TEXT){
-    		String worldID = this.getWorldName();
-    		int textWidth = this.mc.fontRendererObj.getStringWidth(worldID);
-    		ScaledResolution scaledResolution = new ScaledResolution(this.mc);
-      		int xPos = scaledResolution.getScaledWidth()/2 - textWidth/2;
-    		this.mc.fontRendererObj.drawString(worldID, xPos, 5, 0xFFFF0000);
-    	}
-    }
 	
 	
 	public String getWorldName(){
