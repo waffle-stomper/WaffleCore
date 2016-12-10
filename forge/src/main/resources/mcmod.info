@@ -1,6 +1,6 @@
 [
 {
-  "modid": "WaffleCore",
+  "modid": "wafflecore",
   "name": "WaffleCore",
   "description": "Common utilities for wafflemods",
   "version": "${version}",

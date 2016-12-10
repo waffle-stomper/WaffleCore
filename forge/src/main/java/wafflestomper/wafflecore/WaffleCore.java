@@ -14,8 +14,8 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 @Mod(modid = WaffleCore.MODID, version = WaffleCore.VERSION, name = WaffleCore.NAME, updateJSON = "https://raw.githubusercontent.com/waffle-stomper/WaffleCore/master/update.json")
 public class WaffleCore{
 	
-    public static final String MODID = "WaffleCore";
-    public static final String VERSION = "0.0.8";
+    public static final String MODID = "wafflecore";
+    public static final String VERSION = "0.1.1";
     public static final String NAME = "WaffleCore";
     
     public static WaffleCore INSTANCE;
