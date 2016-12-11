@@ -4,8 +4,10 @@
     "1.11-recommended": "0.1.1",
     "1.10-recommended": "0.0.8"
   },
+  "1.11":{
+    "0.1.1": "*Update to 1.11\n*Change modid to lowercase to conform with 1.11"
+  },
   "1.10":{
-    "0.1.1": "*Update to 1.11\n*Change modid to lowercase to conform with 1.11",
     "0.0.8": "*Switch to dedicated 'world_identifier' channel - thanks ProgrammerDan!",
     "0.0.7": "*Remove debugging text",
     "0.0.6": "*Fix a small bug where requests were repeated unnecessarily",
