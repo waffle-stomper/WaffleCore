@@ -1,8 +1,12 @@
 {
   "homepage": "https://github.com/waffle-stomper/WaffleCore/releases",
   "promos":{
+    "1.11.2-recommended": "0.1.2",
     "1.11-recommended": "0.1.1",
     "1.10-recommended": "0.0.8"
+  },
+  "1.11.2":{
+    "0.1.2": "*Update to 1.11.2"
   },
   "1.11":{
     "0.1.1": "*Update to 1.11\n*Change modid to lowercase to conform with 1.11"

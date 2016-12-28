@@ -100,8 +100,8 @@ public class WorldInfo{
 	
 	@SubscribeEvent
 	public void onEntityJoinWorld(EntityJoinWorldEvent event) {
-		if(!mc.isSingleplayer() && mc.thePlayer != null && !mc.thePlayer.isDead) {
-			if(mc.thePlayer.getDisplayName().equals(event.getEntity().getDisplayName())) {
+		if(!mc.isSingleplayer() && mc.player != null && !mc.player.isDead) {
+			if(mc.player.getDisplayName().equals(event.getEntity().getDisplayName())) {
 				serverAddress = mc.getCurrentServerData().serverIP;
 				niceServerAddress = cleanServerAddress(this.getServerAddress());
 				worldID = null;
@@ -116,7 +116,7 @@ public class WorldInfo{
 	
 	@SubscribeEvent
 	public void playerTick(PlayerTickEvent event){
-		if (mc.theWorld != null && !mc.isSingleplayer() && mc.thePlayer != null && !mc.thePlayer.isDead){
+		if (mc.world != null && !mc.isSingleplayer() && mc.player != null && !mc.player.isDead){
 			if (this.requestDelayed){
 				this.requestWorldID();
 			}
