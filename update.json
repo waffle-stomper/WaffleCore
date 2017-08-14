@@ -1,9 +1,13 @@
 {
   "homepage": "https://github.com/waffle-stomper/WaffleCore/releases",
   "promos":{
+    "1.12.1-recommended": "0.1.6",
     "1.11.2-recommended": "0.1.2",
     "1.11-recommended": "0.1.1",
     "1.10-recommended": "0.0.8"
+  },
+  "1.12.1":{
+    "0.1.6": "*Update to 1.12.1"
   },
   "1.11.2":{
     "0.1.2": "*Update to 1.11.2"
